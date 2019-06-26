@@ -15,14 +15,14 @@ namespace WorkOfText
 
             StreamReader str = new StreamReader(@"C:\C sharp\WorkOfText\WorkOfText\bin\Debug\text.txt");
             var s = str.ReadToEnd(); 
-            str.Close();
+           
 
             
             using (StreamReader punctuation = new StreamReader(s)) 
             {
                 string patternPuntuation = @"[[\](){}<>*_-]";
                 var punctuation1 = Regex.Replace (s,patternPuntuation ," ");
-                                              
+                Console.WriteLine(s);
             };
 
             using (StreamReader words = new StreamReader(s))  
@@ -52,16 +52,21 @@ namespace WorkOfText
                 
             };
 
-            using (StreamReader ArraySort = new StreamReader(s))
+            using (StreamReader Wordcount = new StreamReader(s))
             {
-                Regex wordssort = new Regex(@"\b.*\b");
-                MatchCollection matches2 = wordssort.Matches(s);
-                string[] array = matches2(new char[ ], StringSplitOptions.RemoveEmptyEntries);
-                Array.Sort(array);//перевод строки в массив и вывод по алфовиту масива
-                File.WriteAllText("output.txt", array.ToString());
-            };
-                                            
+                string[] inputSentence =s.Split();
+                int count = 0;
+                string pattern = @"(?:\b\w+\ \s|\S)*" + s + @"(?:\b\w+\b\ \s|\S)?";
+                Regex rx = new Regex(pattern, RegexOptions.IgnoreCase);
+                for (int i = 0; i < inputSentence.Length; i++)
+                {
+                    var mc = rx.Matches(inputSentence[i]); foreach (Match m in mc) { count++; }
+                }
+                Console.WriteLine("{0}", count);
 
+            };
+          
+            str.Close();
             Console.ReadLine();
 
 
