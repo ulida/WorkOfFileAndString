@@ -66,7 +66,12 @@ namespace WorkOfText
                 Console.WriteLine("{0}", count);
 
             };
-         
+            
+            using (var sw = File.AppendText(@"C:\Outtext.txt"))
+            {
+                sw.WriteLine(text);
+            }
+
             Console.ReadLine();
 
 
