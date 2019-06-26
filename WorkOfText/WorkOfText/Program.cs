@@ -13,24 +13,25 @@ namespace WorkOfText
         static void Main(string[] args)
         {
             string text;
-            using (StreamReader str = new StreamReader(@"C:\C sharp\WorkOfText\WorkOfText\bin\Debug\text.txt"))
+            using (StreamReader file = new StreamReader(@"C:\C sharp\WorkOfText\WorkOfText\bin\Debug\text.txt"))
             {
-                text = str.ReadToEnd();
-            }
+                text = file.ReadToEnd();
+            };
                                     
             string patternPuntuation = @"[[\](){}<>*_-\\]";
-            var punctuation1 = Regex.Replace (text, patternPuntuation, "");
+            var punctuation = Regex.Replace (text, patternPuntuation, "");
             Console.WriteLine(text);
-           
-
-            using (StreamReader Outputwords = new StreamReader(text))  
+                         
+            using (StreamReader outputwords = new StreamReader(text))  
             {
                 Regex word = new Regex(@"\b\w*\b",RegexOptions.IgnoreCase);
                 if (word.IsMatch(text))
                 {
-                    Console.WriteLine(word.Matches(text));
-                    
-                    
+                    foreach(char words in text)
+                    {
+                        Console.WriteLine(word.Matches(text));
+                    }
+                                
                 }
                 if (!word.IsMatch(text))
                 {
@@ -38,7 +39,7 @@ namespace WorkOfText
                 }
             };
 
-            using (StreamReader sentences = new StreamReader(text))  
+            using (StreamReader outputsentences = new StreamReader(text))  
             {
                 Regex sentence = new Regex(@"[A-Za-z]+[^.!?]*[.!?]", RegexOptions.IgnoreCase);
                 if (sentence.IsMatch(text))
@@ -51,10 +52,10 @@ namespace WorkOfText
                 }
                 
             };
-
+            
             using (StreamReader Wordcount = new StreamReader(text))
             {
-                string[] inputSentence = text.Split();
+                string[] inputSentence =text.Split();
                 int count = 0;
                 string pattern = @"(?:\b\w+\ \s|\S)*" + text + @"(?:\b\w+\b\ \s|\S)?";
                 Regex rx = new Regex(pattern, RegexOptions.IgnoreCase);
@@ -65,8 +66,7 @@ namespace WorkOfText
                 Console.WriteLine("{0}", count);
 
             };
-          
-            
+         
             Console.ReadLine();
 
 
